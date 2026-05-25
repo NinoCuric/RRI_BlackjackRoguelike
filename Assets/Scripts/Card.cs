@@ -7,22 +7,22 @@ namespace Cards
     [CreateAssetMenu(fileName = "New Card", menuName = "Card")]
     public class Card : ScriptableObject
     {
-        public string cardame;
+        public string cardName;
         public CardType cardType;
         public CardNumber baseNumber;
         public int valueNumber;
         public Sprite cardSprite;
 
-        public void InitializeNumber()
+        public void InitializeNumberValue()
         {
             valueNumber = (int)baseNumber;
         }
 
         public enum CardType
         {
-            Spades,
             Hearts,
             Diamonds,
+            Spades,
             Clubs
         }
 

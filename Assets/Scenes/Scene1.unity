@@ -119,6 +119,88 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &12459789 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9030527472190642128, guid: 5ca23dab5eb859e46be669a4678aff93, type: 3}
+  m_PrefabInstance: {fileID: 1531155607701436876}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+--- !u!114 &151513439 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8027942589722271999, guid: 5ca23dab5eb859e46be669a4678aff93, type: 3}
+  m_PrefabInstance: {fileID: 1531155607701436876}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+--- !u!114 &517462135 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3504908037170762628, guid: 5ca23dab5eb859e46be669a4678aff93, type: 3}
+  m_PrefabInstance: {fileID: 1531155607701436876}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+--- !u!114 &612449221 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3516102243122018586, guid: 5ca23dab5eb859e46be669a4678aff93, type: 3}
+  m_PrefabInstance: {fileID: 1531155607701436876}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+--- !u!114 &682495392 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4641541628548646839, guid: 5ca23dab5eb859e46be669a4678aff93, type: 3}
+  m_PrefabInstance: {fileID: 1531155607701436876}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+--- !u!1 &1188728731 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8325845470982750103, guid: 5ca23dab5eb859e46be669a4678aff93, type: 3}
+  m_PrefabInstance: {fileID: 1531155607701436876}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1188728732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1188728731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48967dc385b489542aeff9bd35e36228, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CardDisplay
+  cardData: {fileID: 0}
+  nameText: {fileID: 682495392}
+  valueNumber: {fileID: 612449221}
+  baseNumbers:
+  - {fileID: 151513439}
+  - {fileID: 517462135}
+  typeIcons:
+  - {fileID: 12459789}
+  - {fileID: 1691988046}
+  TypeImage: {fileID: 1726773146}
 --- !u!1 &1388754030
 GameObject:
   m_ObjectHideFlags: 0
@@ -198,6 +280,28 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1691988046 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1786497294971572700, guid: 5ca23dab5eb859e46be669a4678aff93, type: 3}
+  m_PrefabInstance: {fileID: 1531155607701436876}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+--- !u!114 &1726773146 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 817520338439360228, guid: 5ca23dab5eb859e46be669a4678aff93, type: 3}
+  m_PrefabInstance: {fileID: 1531155607701436876}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
 --- !u!1 &2004538538
 GameObject:
   m_ObjectHideFlags: 0
@@ -343,6 +447,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 999094607415205694, guid: 5ca23dab5eb859e46be669a4678aff93, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1396988761942026265, guid: 5ca23dab5eb859e46be669a4678aff93, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -391,13 +499,25 @@ PrefabInstance:
       propertyPath: m_Name
       value: CardPrefab
       objectReference: {fileID: 0}
+    - target: {fileID: 9030527472190642128, guid: 5ca23dab5eb859e46be669a4678aff93, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9030527472190642128, guid: 5ca23dab5eb859e46be669a4678aff93, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9030527472190642128, guid: 5ca23dab5eb859e46be669a4678aff93, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 999094607415205694, guid: 5ca23dab5eb859e46be669a4678aff93, type: 3}
-      insertIndex: 1
-      addedObject: {fileID: 0}
+    - targetCorrespondingSourceObject: {fileID: 8325845470982750103, guid: 5ca23dab5eb859e46be669a4678aff93, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1188728732}
   m_SourcePrefab: {fileID: 100100000, guid: 5ca23dab5eb859e46be669a4678aff93, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
