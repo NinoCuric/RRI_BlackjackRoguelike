@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7960660215626998709
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1226,6 +1226,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1396988761942026265}
+  - component: {fileID: 4258925230249350265}
   m_Layer: 0
   m_Name: CardPrefab
   m_TagString: Untagged
@@ -1243,12 +1244,34 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 100, y: 100, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 142465580203706166}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4258925230249350265
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8325845470982750103}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48967dc385b489542aeff9bd35e36228, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CardDisplay
+  cardData: {fileID: 11400000, guid: 91ee895046d28c24b90ac1f2919dab5a, type: 2}
+  nameText: {fileID: 4641541628548646839}
+  valueNumber: {fileID: 3516102243122018586}
+  baseNumbers:
+  - {fileID: 8027942589722271999}
+  - {fileID: 3504908037170762628}
+  typeIcons:
+  - {fileID: 9030527472190642128}
+  - {fileID: 1786497294971572700}
+  TypeImage: {fileID: 817520338439360228}
 --- !u!1 &8614561406214174826
 GameObject:
   m_ObjectHideFlags: 0
