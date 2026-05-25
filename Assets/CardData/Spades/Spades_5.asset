@@ -15,5 +15,5 @@ MonoBehaviour:
   cardName: Spades_5
   cardType: 2
   baseNumber: 5
-  valueNumber: 0
-  cardSprite: {fileID: 0}
+  valueNumber: 5
+  cardSprite: {fileID: 6737017595884545002, guid: 5f0074f1c36da4a71bf1a5e1528a2f35, type: 3}

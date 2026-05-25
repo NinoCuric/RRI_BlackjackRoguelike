@@ -1,4 +1,4 @@
-using UnityEngine;
+/*using UnityEngine;
 
 using UnityEngine.UI;
 using TMPro;
@@ -19,18 +19,24 @@ public class CardDisplay : MonoBehaviour
     private Color[] typeColors =    {
         Color.red,   //Hearts, Diamonds 0,1
         Color.black, //Clubs, Spades    2.3
-    }; 
+    };
 
     void Start()
     {
         UpdateCardDisplay();
     }
-  
-/*    public void InitializeNumber()
+    public void Setup(Card newCardData)
+    {
+        cardData = newCardData;
+        UpdateCardDisplay();
+    }
+    
+    //ovu funkciju zakomentiraj
+    public void InitializeNumber()
     {
         valueNumber.text = ((int)cardData.baseNumber).ToString();
-    }*/
-
+    }
+    
     public void letterToDisplay(TMP_Text baseNumber)
     {
         if (cardData.baseNumber == Card.CardNumber.Ace)
@@ -68,5 +74,24 @@ public class CardDisplay : MonoBehaviour
         valueNumber.text = ((int)cardData.baseNumber).ToString();
 
 
+    }
+}*/
+
+using UnityEngine;
+using Cards;
+
+public class CardDisplay : MonoBehaviour
+{
+    public Card cardData;
+
+    public SpriteRenderer cardRenderer;
+
+    public void Setup(Card newCardData)
+    {
+        cardData = newCardData;
+        Debug.Log("SETUP: " + cardData.cardName);
+        Debug.Log("SPRITE: " + cardData.cardSprite);
+
+        cardRenderer.sprite = cardData.cardSprite;
     }
 }

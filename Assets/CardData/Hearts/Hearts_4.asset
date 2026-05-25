@@ -15,5 +15,5 @@ MonoBehaviour:
   cardName: Hearts_4
   cardType: 0
   baseNumber: 4
-  valueNumber: 0
-  cardSprite: {fileID: 0}
+  valueNumber: 4
+  cardSprite: {fileID: -288016928367226910, guid: 5f0074f1c36da4a71bf1a5e1528a2f35, type: 3}

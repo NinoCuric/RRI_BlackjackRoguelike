@@ -9,10 +9,28 @@ public class Deck : MonoBehaviour
 
     private List<Card> currentDeck = new List<Card>();
 
+    public GameObject cardPrefab;
+    public Transform playerCardArea;
+
     private void Start()
     {
         BuildDeck();
         ShuffleDeck();
+
+        Card drawnCard = DrawCard();
+
+        Debug.Log("Drew: " + drawnCard.cardName);
+        SpawnCard(drawnCard);
+    }
+
+    public void SpawnCard(Card cardData)
+    {
+        GameObject newCard = Instantiate(cardPrefab, playerCardArea);
+        Vector3 camPos = Camera.main.transform.position;
+        newCard.transform.position = new Vector3(camPos.x, camPos.y, 0);
+        CardDisplay display = newCard.GetComponent<CardDisplay>();
+
+        display.Setup(cardData);
     }
 
     public void BuildDeck()
@@ -21,6 +39,7 @@ public class Deck : MonoBehaviour
 
         foreach (Card card in allCards)
         {
+            card.InitializeNumberValue();
             currentDeck.Add(card);
         }
     }
