@@ -10,16 +10,16 @@ public class HandManager : MonoBehaviour
     public DeckManager deckManager;
     public GameObject cardPrefab; //assign in inspector
     public Transform handTransform; //root hand position
-    public float fanSpread = -3f;
+    public float fanSpread = -2.5f;
 
     public float cardSpacing = 120f;
     public float verticalSpacing;
+    public int maxHandSize = 10;
     public List<GameObject> cardsInHand = new List<GameObject>();
 
 
     void Start()
     {
-        
 
     }
 
@@ -28,8 +28,15 @@ public class HandManager : MonoBehaviour
         UpdateHandVisuals();
     }
 
-    public void AddCardToHand(Card cardData)
-    {   //instatiate the card
+    public bool AddCardToHand(Card cardData)
+    {   
+        if (cardsInHand.Count >= maxHandSize)
+        {
+            Debug.Log("Hand is full!");
+            return false;
+        }
+
+        //instatiate the card
         GameObject newCard = Instantiate(cardPrefab, handTransform.position, Quaternion.identity, handTransform);
         cardsInHand.Add(newCard);
 
@@ -37,6 +44,8 @@ public class HandManager : MonoBehaviour
         newCard.GetComponent<CardDisplay>().cardData = cardData;
 
         UpdateHandVisuals();
+
+        return true;
     }
 
     private void UpdateHandVisuals()
@@ -50,7 +59,7 @@ public class HandManager : MonoBehaviour
             return;
         }
 
-        verticalSpacing = (cardCount - 2) * 8f; //adjust vertical spacing based on card count
+        verticalSpacing = (cardCount - 2) * 6f; //adjust vertical spacing based on card count
 
         for (int i = 0; i < cardCount; i++)    {
             float rotationAngle = (fanSpread * (i - (cardCount - 1) / 2f));
@@ -64,7 +73,7 @@ public class HandManager : MonoBehaviour
             //set card position
             cardsInHand[i].transform.localPosition = new Vector3(horizontalOffset, verticalOffset, 0f);
         
-        
         }
     }
+
 }

@@ -52,8 +52,10 @@ public class DeckManager : MonoBehaviour
         }
 
         Card drawnCard = currentDeck[0];
-        handManager.AddCardToHand(drawnCard);
-        currentDeck.RemoveAt(0);
+        bool canDraw = handManager.AddCardToHand(drawnCard);
+        if (canDraw) {
+            currentDeck.RemoveAt(0);
+        }
 
     }
 }
