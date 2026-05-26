@@ -19,6 +19,12 @@ public class DeckManager : MonoBehaviour
 
         BuildDeck();
         ShuffleDeck();
+
+        HandManager hand = FindAnyObjectByType<HandManager>();
+        for(int i = 0; i < 5; i++)
+        {
+            DrawCard(hand);
+        }
     }
 
     public void BuildDeck()

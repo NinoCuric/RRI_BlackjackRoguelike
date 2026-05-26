@@ -25,7 +25,7 @@ public class HandManager : MonoBehaviour
 
     void Update()
     {
-        UpdateHandVisuals();
+        //UpdateHandVisuals();
     }
 
     public bool AddCardToHand(Card cardData)
@@ -67,7 +67,7 @@ public class HandManager : MonoBehaviour
 
             float horizontalOffset = (cardSpacing * (i - (cardCount - 1) / 2f));
             
-            float normalizedPosition = /*cardCount == 1 ? 0f :*/ (2f * i / (cardCount - 1) - 1f);  //normalise between -1 and 1
+            float normalizedPosition = (2f * i / (cardCount - 1) - 1f);  //normalise between -1 and 1
             float verticalOffset = verticalSpacing * (1 - normalizedPosition * normalizedPosition);
             
             //set card position
