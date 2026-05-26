@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: efa5651274f18a74d96b4cb448df9c27
+guid: 03e4b18607005c84b83bc019a02dd598
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2332684609758182423
-    second: OuterCircle_0
+      213: -1486736674410596525
+    second: ArrowHead_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: OuterCircle_0
+      name: ArrowHead_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 60
-        height: 60
+        width: 143
+        height: 283
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 9e3c75ed4b3a0afd0800000000000000
-      internalID: -2332684609758182423
+      spriteID: 357f5372fdc0e5be0800000000000000
+      internalID: -1486736674410596525
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      OuterCircle_0: -2332684609758182423
+      ArrowHead_0: -1486736674410596525
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
