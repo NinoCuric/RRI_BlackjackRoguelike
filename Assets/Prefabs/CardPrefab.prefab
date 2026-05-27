@@ -1038,7 +1038,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CardMovement
   selectScale: 1.1
   cardPlay: {x: 0, y: 230}
-  playPosition: {x: -750, y: 350, z: 0}
+  playPosition: {x: -750, y: 400, z: 0}
   glowEffect: {fileID: 4438633201629787608}
   playArrow: {fileID: 4406127517408020807}
   lerpFactor: 0.1

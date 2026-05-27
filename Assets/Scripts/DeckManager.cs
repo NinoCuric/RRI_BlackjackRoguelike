@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Cards;
+using UnityEngine.UI;
+using TMPro;
 
 public class DeckManager : MonoBehaviour
 {
@@ -8,6 +10,8 @@ public class DeckManager : MonoBehaviour
     public List<Card> allCards = new List<Card>();
 
     private List<Card> currentDeck = new List<Card>();
+    public GameObject deckImage;
+    public TMP_Text cardCount;
 
     private void Start()
     {
@@ -21,10 +25,11 @@ public class DeckManager : MonoBehaviour
         ShuffleDeck();
 
         HandManager hand = FindAnyObjectByType<HandManager>();
-        for(int i = 0; i < 5; i++)
+        for (int i = 0; i < 5; i++)
         {
             DrawCard(hand);
         }
+        UpdateDeckVisual();
     }
 
     public void BuildDeck()
@@ -59,9 +64,22 @@ public class DeckManager : MonoBehaviour
 
         Card drawnCard = currentDeck[0];
         bool canDraw = handManager.AddCardToHand(drawnCard);
-        if (canDraw) {
+        if (canDraw)
+        {
             currentDeck.RemoveAt(0);
+            UpdateDeckVisual();
         }
+    }
 
+    public void UpdateDeckVisual()
+    {
+        deckImage.SetActive(currentDeck.Count > 0);     //alternativa u DiscardPileu
+        cardCount.text = currentDeck.Count.ToString();
+    }
+
+    public void DrawCardFromButton()
+    {
+        HandManager hand = FindAnyObjectByType<HandManager>();
+        DrawCard(hand);
     }
 }
