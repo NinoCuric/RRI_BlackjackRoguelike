@@ -1,26 +1,26 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DeckVisuals : MonoBehaviour
 {
-    public GameObject deckImage;
-    public TMP_Text cardCount;
+    [SerializeField] private GameObject deckImage;
+    [SerializeField] private TMP_Text cardCount;
+    [SerializeField] private Button drawButton;
 
-
-    void Start()
+    private void Awake()
     {
-
+        drawButton.onClick.AddListener(OnDrawButtonClicked);
     }
 
-    void Update()
+    private void OnDestroy()
     {
-
+        drawButton.onClick.RemoveListener(OnDrawButtonClicked);
     }
 
-    public void DeckVisual()
+    private void OnDrawButtonClicked()
     {
-        Debug.Log("DeckVisual called");
-
+        GameManager.Instance.DeckManager.DrawCard();
     }
 
     public void UpdateDeckVisual(int deckCount)

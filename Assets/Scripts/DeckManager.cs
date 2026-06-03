@@ -11,13 +11,18 @@ public class DeckManager : MonoBehaviour
 
     private List<Card> currentDeck = new List<Card>();
     public int drawStartTurn = 5;
-    private HandManager handManager;
 
-    [SerializeField] private DeckVisuals deckVisuals;
+    private HandManager handManager;
+    private DeckVisuals deckVisuals;
+
+    void Awake()
+    {
+        deckVisuals = FindAnyObjectByType<DeckVisuals>();
+        handManager = FindAnyObjectByType<HandManager>();
+    }
 
     void Start()
     {
-        Debug.Log("DeckManager START: " + GetEntityId());
         //load all card assets from resources folder
         Card[] cards = Resources.LoadAll<Card>("Cards");
 
@@ -27,7 +32,6 @@ public class DeckManager : MonoBehaviour
         BuildDeck();
         ShuffleDeck();
 
-        handManager = FindAnyObjectByType<HandManager>();
         for (int i = 0; i < drawStartTurn; i++)
         {
             DrawCard();
@@ -80,8 +84,4 @@ public class DeckManager : MonoBehaviour
         return currentDeck.Count;
     }
 
-    public void DrawCardFromButton()
-    {
-        DrawCard();
-    }
 }

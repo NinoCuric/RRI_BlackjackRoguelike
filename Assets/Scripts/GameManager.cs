@@ -5,11 +5,11 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
 
     private int playerScore;
+    private int currentTurn;
 
     public OptionsManager OptionsManager { get; private set; }
     public AudioManager AudioManager { get; private set; }
     public DeckManager DeckManager { get; private set; }
-    public DeckVisuals DeckVisuals { get; private set; }
 
     [SerializeField] private RectTransform deckRoot;
 
@@ -32,15 +32,13 @@ public class GameManager : MonoBehaviour
     {
         OptionsManager = CreateOrGet<OptionsManager>("Prefabs/OptionsManager");
         AudioManager = CreateOrGet<AudioManager>("Prefabs/AudioManager");
-
         DeckManager = CreateOrGet<DeckManager>("Prefabs/DeckManager");
+
         /*
         OptionsManager = GetComponentInChildren<OptionsManager>();
         AudioManager = GetComponentInChildren<AudioManager>();
         DeckManager = GetComponentInChildren<DeckManager>();*/
-        GameObject deckUIObj = Instantiate(Resources.Load<GameObject>("Prefabs/DeckPile"), deckRoot);
 
-        DeckVisuals = deckUIObj.GetComponent<DeckVisuals>();
         /*
         if (OptionsManager == null)
         {
@@ -81,20 +79,18 @@ public class GameManager : MonoBehaviour
                 DeckManager = GetComponentInChildren<DeckManager>();
             }
         }*/
-
-        Instance.Initialize(this, DeckVisuals);
     }
 
-    public void Initialize(GameManager manager, DeckVisuals visuals)
-    {
-        Instance = manager;
-        DeckVisuals = visuals;
-    }
 
     public int PlayerScore
     {
         get { return playerScore; }
         set { playerScore = value; }
+    }
+    public int CurrentTurn
+    {
+        get { return currentTurn; }
+        set { currentTurn = value; }
     }
 
     private T CreateOrGet<T>(string path) where T : MonoBehaviour
@@ -102,7 +98,10 @@ public class GameManager : MonoBehaviour
         T obj = GetComponentInChildren<T>();
 
         if (obj != null)
+        {
+            Debug.Log($"Found existing {typeof(T).Name}");
             return obj;
+        }
 
         GameObject prefab = Resources.Load<GameObject>(path);
 
@@ -113,17 +112,17 @@ public class GameManager : MonoBehaviour
         }
 
         GameObject instance = Instantiate(prefab, transform);
+        Debug.Log($"Instantiated {typeof(T).Name}: {instance.name}");
+
         return instance.GetComponent<T>();
     }
 
     public void DrawCardFromDeck()
     {
-        if (DeckManager != null)
-        {
-            DeckManager.DrawCardFromButton();
+        if (DeckManager != null) {
+            DeckManager.DrawCard();
         }
-        else
-        {
+        else {
             Debug.LogError("DeckManager is null in GameManager!");
         }
     }
