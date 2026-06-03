@@ -10,11 +10,14 @@ public class DeckManager : MonoBehaviour
     public List<Card> allCards = new List<Card>();
 
     private List<Card> currentDeck = new List<Card>();
-    public GameObject deckImage;
-    public TMP_Text cardCount;
+    public int drawStartTurn = 5;
+    private HandManager handManager;
 
-    private void Start()
+    [SerializeField] private DeckVisuals deckVisuals;
+
+    void Start()
     {
+        Debug.Log("DeckManager START: " + GetEntityId());
         //load all card assets from resources folder
         Card[] cards = Resources.LoadAll<Card>("Cards");
 
@@ -24,12 +27,12 @@ public class DeckManager : MonoBehaviour
         BuildDeck();
         ShuffleDeck();
 
-        HandManager hand = FindAnyObjectByType<HandManager>();
-        for (int i = 0; i < 5; i++)
+        handManager = FindAnyObjectByType<HandManager>();
+        for (int i = 0; i < drawStartTurn; i++)
         {
-            DrawCard(hand);
+            DrawCard();
         }
-        UpdateDeckVisual();
+        deckVisuals.UpdateDeckVisual(currentDeck.Count);
     }
 
     public void BuildDeck()
@@ -54,8 +57,9 @@ public class DeckManager : MonoBehaviour
         }
     }
 
-    public void DrawCard(HandManager handManager)
+    public void DrawCard()
     {
+        Debug.Log("DrawCard called on: " + gameObject.GetEntityId() + " | Count: " + currentDeck.Count);
         if (currentDeck.Count == 0)
         {
             Debug.Log("Deck is empty!");
@@ -67,19 +71,17 @@ public class DeckManager : MonoBehaviour
         if (canDraw)
         {
             currentDeck.RemoveAt(0);
-            UpdateDeckVisual();
+            deckVisuals.UpdateDeckVisual(currentDeck.Count);
         }
     }
 
-    public void UpdateDeckVisual()
+    public int GetDeckCount()
     {
-        deckImage.SetActive(currentDeck.Count > 0);     //alternativa u DiscardPileu
-        cardCount.text = currentDeck.Count.ToString();
+        return currentDeck.Count;
     }
 
     public void DrawCardFromButton()
     {
-        HandManager hand = FindAnyObjectByType<HandManager>();
-        DrawCard(hand);
+        DrawCard();
     }
 }
