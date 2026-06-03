@@ -7,7 +7,6 @@ using UnityEditor.ShaderGraph;
 
 public class HandManager : MonoBehaviour
 {
-    public DeckManager deckManager;
     public GameObject cardPrefab; //assign in inspector
     public Transform handTransform; //root hand position
     public float fanSpread = -2.5f;
