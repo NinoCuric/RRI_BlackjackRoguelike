@@ -16,7 +16,7 @@ public class CardDisplay : MonoBehaviour
 
     void Start()
     {
-        InitializeNumber();
+        cardData.InitializeNumberValue();
 
         UpdateCardDisplay();
     }
@@ -30,7 +30,7 @@ public class CardDisplay : MonoBehaviour
     public void UpdateCardDisplay()
     {
         nameText.text = cardData.cardName;
-//        valueNumber.text = cardData.valueNumber.ToString();
+        valueNumber.text = cardData.valueNumber.ToString();
         CardImage.sprite = cardData.cardSprite;
 
     }

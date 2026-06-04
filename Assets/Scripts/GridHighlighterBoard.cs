@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[RequireComponent(typeof(SpriteRenderer))]
 public class GridHighlighterBoard : MonoBehaviour
 {
     private SpriteRenderer spriteRenderer;
