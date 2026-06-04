@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
     public OptionsManager OptionsManager { get; private set; }
     public AudioManager AudioManager { get; private set; }
     public DeckManager DeckManager { get; private set; }
+    public DiscardPileManager DiscardPileManager { get; private set; }
+
 
     [SerializeField] private RectTransform deckRoot;
 
@@ -33,6 +35,7 @@ public class GameManager : MonoBehaviour
         OptionsManager = CreateOrGet<OptionsManager>("Prefabs/OptionsManager");
         AudioManager = CreateOrGet<AudioManager>("Prefabs/AudioManager");
         DeckManager = CreateOrGet<DeckManager>("Prefabs/DeckManager");
+        DiscardPileManager = CreateOrGet<DiscardPileManager>("Prefabs/DiscardPileManager");
 
         /*
         OptionsManager = GetComponentInChildren<OptionsManager>();

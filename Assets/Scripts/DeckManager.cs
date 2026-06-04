@@ -9,7 +9,7 @@ public class DeckManager : MonoBehaviour
     [Header("All Card Assets")]
     public List<Card> allCards = new List<Card>();
 
-    private List<Card> currentDeck = new List<Card>();
+    public List<Card> currentDeck = new List<Card>();
     public int drawStartTurn = 5;
 
     private HandManager handManager;
@@ -36,7 +36,6 @@ public class DeckManager : MonoBehaviour
         {
             DrawCard();
         }
-        deckVisuals.UpdateDeckVisual(currentDeck.Count);
     }
 
     public void BuildDeck()
@@ -66,8 +65,7 @@ public class DeckManager : MonoBehaviour
         Debug.Log("DrawCard called on: " + gameObject.GetEntityId() + " | Count: " + currentDeck.Count);
         if (currentDeck.Count == 0)
         {
-            Debug.Log("Deck is empty!");
-            return;
+            GameManager.Instance.DiscardPileManager.ShuffleDiscardIntoDeck();
         }
 
         Card drawnCard = currentDeck[0];
@@ -75,9 +73,9 @@ public class DeckManager : MonoBehaviour
         if (canDraw)
         {
             currentDeck.RemoveAt(0);
-            deckVisuals.UpdateDeckVisual(currentDeck.Count);
+            deckVisuals.UpdateDeckVisual();
         }
-        GridManager gridManager = FindAnyObjectByType<GridManager>();
+        GridManager gridManager = FindAnyObjectByType<GridManager>();       //TEMPORARY GRID TESTING
         gridManager.CreateGrid();
     }
 

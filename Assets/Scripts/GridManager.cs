@@ -14,16 +14,9 @@ public class GridManager : MonoBehaviour
     public GameObject gridHighlightOverlay;
     public Transform gridTransform; //root grid position
 
-    private DiscardPileManager discardPileManager;
-
     private Vector2 centerOffset;
     private float scaleCellX;
     private float scaleCardX;
-
-    private void Awake()
-    {
-        discardPileManager = FindAnyObjectByType<DiscardPileManager>();
-    }
 
     void Start()
     {
@@ -41,6 +34,7 @@ public class GridManager : MonoBehaviour
         centerOffset = new Vector2(boardSize / 2f - 0.5f, 0f);
         scaleCellX = gridCellPrefab.GetComponent<Transform>().localScale.x;
         scaleCardX = cardPrefab.GetComponent<Transform>().localScale.x * 0.8f;
+        PositionOverlay();
 
 
         for (int x = 0; x < boardSize; x++)
@@ -56,8 +50,6 @@ public class GridManager : MonoBehaviour
 
             gridCells[x] = gridCell;
         }
-
-        PositionOverlay();
     }
 
 
@@ -105,7 +97,7 @@ public class GridManager : MonoBehaviour
     {
         foreach (GameObject obj in gridObjects)
         {
-            discardPileManager.AddToDiscard(obj.GetComponent<CardDisplay>().cardData);
+            GameManager.Instance.DiscardPileManager.AddToDiscard(obj.GetComponent<CardDisplay>().cardData);
         }
         gridObjects.Clear();
 

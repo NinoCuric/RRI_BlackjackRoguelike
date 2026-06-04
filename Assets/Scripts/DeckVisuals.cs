@@ -13,6 +13,11 @@ public class DeckVisuals : MonoBehaviour
         drawButton.onClick.AddListener(OnDrawButtonClicked);
     }
 
+    private void Start()
+    {
+        UpdateDeckVisual();
+    }
+
     private void OnDestroy()
     {
         drawButton.onClick.RemoveListener(OnDrawButtonClicked);
@@ -23,11 +28,12 @@ public class DeckVisuals : MonoBehaviour
         GameManager.Instance.DeckManager.DrawCard();
     }
 
-    public void UpdateDeckVisual(int deckCount)
+    public void UpdateDeckVisual()
     {
+        int deckCount = GameManager.Instance.DeckManager.currentDeck.Count;
         Debug.Log($"UpdateDeckVisual called count = {deckCount}");
 
-        deckImage.SetActive(deckCount > 0);     //alternativa u DiscardPileu
+        deckImage.SetActive(deckCount > 0);
         cardCount.text = deckCount.ToString();
     }
 

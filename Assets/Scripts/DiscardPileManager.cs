@@ -7,17 +7,25 @@ public class DiscardPileManager : MonoBehaviour
 {
     public List<Card> discardedCards = new List<Card>();
 
-    public Image discardImage;
+    private DiscardPileVisuals discardVisuals;
+
+    private void Awake()
+    {
+        discardVisuals = FindAnyObjectByType<DiscardPileVisuals>();
+    }
 
     private void Start()
     {
-        UpdateDiscardVisual();
+        discardVisuals.UpdateDiscardVisual();
     }
+
     public void AddToDiscard(Card card)
     {
         discardedCards.Add(card);
-
-        UpdateDiscardVisual();
+        if (discardedCards.Count > 0)
+        {
+            discardVisuals.UpdateDiscardVisual();
+        }
     }
 
     public bool HasCards()
@@ -25,9 +33,22 @@ public class DiscardPileManager : MonoBehaviour
         return discardedCards.Count > 0;
     }
 
-    public void UpdateDiscardVisual()
-    {
-        discardImage.enabled = discardedCards.Count > 0;    //alternativa u DeckMangeru
-    }
 
+    public void ShuffleDiscardIntoDeck()
+    {
+        if (discardedCards.Count == 0)
+        {
+            Debug.Log("No cards in discard pile to shuffle back into deck.");
+            return;
+        }
+
+        foreach (Card card in discardedCards)
+        {
+            GameManager.Instance.DeckManager.currentDeck.Add(card);
+        }
+        GameManager.Instance.DeckManager.ShuffleDeck();
+
+        discardedCards.Clear();
+        discardVisuals.UpdateDiscardVisual();
+    }
 }
