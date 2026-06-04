@@ -13,7 +13,7 @@ public class UIObjectPositioner : MonoBehaviour
 
     void Start()
     {
-        SetUIObjectPositoon();
+        SetUIObjectPosition();
     }
 
     
@@ -21,11 +21,11 @@ public class UIObjectPositioner : MonoBehaviour
     {
         if (updatePosition)
         {
-            SetUIObjectPositoon();
+            SetUIObjectPosition();
         }
     }
 
-    public void SetUIObjectPositoon()
+    public void SetUIObjectPosition()
     {
         if (objectToPosition != null && widthDivider != 0 && heightDivider != 0)
         {
