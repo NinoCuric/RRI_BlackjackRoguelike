@@ -3,7 +3,7 @@ using UnityEngine;
 using Cards;
 using UnityEngine.UI;
 
-public class DiscardPile : MonoBehaviour
+public class DiscardPileManager : MonoBehaviour
 {
     public List<Card> discardedCards = new List<Card>();
 

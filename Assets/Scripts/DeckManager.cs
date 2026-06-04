@@ -77,6 +77,8 @@ public class DeckManager : MonoBehaviour
             currentDeck.RemoveAt(0);
             deckVisuals.UpdateDeckVisual(currentDeck.Count);
         }
+        GridManager gridManager = FindAnyObjectByType<GridManager>();
+        gridManager.CreateGrid();
     }
 
     public int GetDeckCount()

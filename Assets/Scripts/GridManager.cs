@@ -14,18 +14,29 @@ public class GridManager : MonoBehaviour
     public GameObject gridHighlightOverlay;
     public Transform gridTransform; //root grid position
 
+    private DiscardPileManager discardPileManager;
+
     private Vector2 centerOffset;
     private float scaleCellX;
     private float scaleCardX;
 
+    private void Awake()
+    {
+        discardPileManager = FindAnyObjectByType<DiscardPileManager>();
+    }
+
     void Start()
     {
         CreateGrid();
-        PositionOverlay();
     }
 
-    void CreateGrid()
+    public void CreateGrid()
     {
+        if (gridCells != null)
+        {
+            GridClear();
+        }
+
         gridCells = new GameObject[boardSize];
         centerOffset = new Vector2(boardSize / 2f - 0.5f, 0f);
         scaleCellX = gridCellPrefab.GetComponent<Transform>().localScale.x;
@@ -45,6 +56,8 @@ public class GridManager : MonoBehaviour
 
             gridCells[x] = gridCell;
         }
+
+        PositionOverlay();
     }
 
 
@@ -75,34 +88,11 @@ public class GridManager : MonoBehaviour
                 }
             }
             return false; //already checked at start but added for safety
-
-            /*GridCell cell = gridCells[(int)gridPosition.x].GetComponent<GridCell>();
-
-            if (cell.cellFull)
-            {
-                Debug.LogWarning("Cell is already occupied");
-                return false;
-            }
-            else
-            {
-                GameObject newObj = Instantiate(obj, cell.GetComponent<Transform>().position, Quaternion.identity);
-                newObj.transform.SetParent(transform);
-                gridObjects.Add(newObj);
-                cell.objectInCell = newObj;
-                cell.cellFull = true;
-                return true;
-            }
-        }
-        else 
-        {
-            Debug.LogError("Cell out of bounds");
-            return false; 
-        }*/
         }
     }
 
 
-    void PositionOverlay()
+    private void PositionOverlay()
     {
         float size = boardSize * scaleCellX; // match spacing
         float scaleCellY = gridCellPrefab.GetComponent<Transform>().localScale.y;
@@ -110,4 +100,26 @@ public class GridManager : MonoBehaviour
         gridHighlightOverlay.transform.position = new Vector2(0, 0);
         gridHighlightOverlay.transform.localScale = new Vector2(size, scaleCellY);
     }
+
+    private void GridClear()
+    {
+        foreach (GameObject obj in gridObjects)
+        {
+            discardPileManager.AddToDiscard(obj.GetComponent<CardDisplay>().cardData);
+        }
+        gridObjects.Clear();
+
+        if (gridCells != null) 
+        { 
+            foreach (GameObject cell in gridCells)
+            {
+                if (cell != null)
+                {
+                    Destroy(cell);
+                }
+            }
+        }
+        gridCells = null;
+    }
+
 }
