@@ -1,13 +1,15 @@
 using Cards;
 using System.Collections.Generic;
+using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
-    private int playerScore;
+    private int playerScore = 0;
     private int currentTurn = 1;
     private int currentRound = 1;
     private int roundScore = 0;
@@ -23,15 +25,27 @@ public class GameManager : MonoBehaviour
     [SerializeField] private HandManager handManager;
     [SerializeField] private GridManager gridManager;
 
+    [SerializeField] private int roundGoalIncrease = 2;
     [SerializeField] private int turnsPerRound = 3;
     [SerializeField] private TMP_Text turnText;
+    [SerializeField] private TMP_Text scoreText;
+    [SerializeField] private TMP_Text finalScoreText;
+    [SerializeField] private GameObject losePanel;
+    [SerializeField] private GameObject retryButton;
+
+
+    [SerializeField] private int scorePerTurn = 21;
+    private int MinimumRoundScore => scorePerTurn * turnsPerRound + (currentRound - 1) * roundGoalIncrease;
+
+    private int MaximumRoundScore =>
+        Mathf.FloorToInt(MinimumRoundScore * 1.1f);
 
     private void Awake()
     {
         if (Instance == null)
-        { 
+        {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
+            //DontDestroyOnLoad(gameObject);
             InitializeManagers();
         }
         else
@@ -141,12 +155,10 @@ public class GameManager : MonoBehaviour
         handManager.DiscardHand();
 
         int score = gridManager.CalculateBoardValue();
-        roundScore += score;
+        roundScore = roundScore + score;
 
-        Debug.Log("Board Value: " + score);
-
-        //za kasnije:
-        //provjerit win condition tu
+        Debug.Log("Turn Score: " + score);
+        Debug.Log("Round Score: " + roundScore);
 
         gridManager.GridClear();
 
@@ -158,8 +170,16 @@ public class GameManager : MonoBehaviour
         currentTurn++;
         if (currentTurn > turnsPerRound)
         {
+            playerScore += roundScore;
+            finalScoreText.text = $"Final Score: {playerScore}";
+
+            if (!CheckRoundResult())
+            {
+                return;
+            }
             currentTurn = 1;
             currentRound++;
+
 
             Debug.Log("Round Score: " + roundScore);
             roundScore = 0;
@@ -168,6 +188,7 @@ public class GameManager : MonoBehaviour
         }
         Debug.Log("Current Turn: " + currentTurn);
         UpdateTurnUI();
+        UpdateScoreUI();
         StartTurn();
     }
 
@@ -183,14 +204,62 @@ public class GameManager : MonoBehaviour
     {
         handManager = FindAnyObjectByType<HandManager>();
         gridManager = FindAnyObjectByType<GridManager>();
-
+        losePanel.SetActive(false);
         Debug.Log($"Round {currentRound} Turn {currentTurn}");
         UpdateTurnUI();
+        UpdateScoreUI();
         StartTurn();
     }
 
     private void UpdateTurnUI()
     {
-        turnText.text = $"Round {currentRound} - Turn {currentTurn}";
+        turnText.text = $"Round {currentRound} - Turn {currentTurn}/3";
+    }
+
+    private bool CheckRoundResult()
+    {
+        int minimum = scorePerTurn * turnsPerRound + (currentRound - 1) * roundGoalIncrease;
+        int maximum = Mathf.FloorToInt(minimum * 1.1f);
+
+        Debug.Log($"Round Final Score: {roundScore}");
+        Debug.Log($"Required Range: {minimum} - {maximum}");
+
+        if (roundScore >= minimum && roundScore <= maximum)
+        {
+            Debug.Log("ROUND PASSED");
+            return true;
+        }
+        else
+        {
+            Debug.Log("ROUND FAILED");
+            GameOver();
+            return false;
+        }
+    }
+
+    private void UpdateScoreUI()
+    {
+        scoreText.text = $"Score: {roundScore}/{MinimumRoundScore}-{MaximumRoundScore}";
+    }
+
+    private void GameOver()
+    {
+        StartCoroutine(ShowLoseScreen());
+    }
+
+    private IEnumerator ShowLoseScreen()
+    {
+        losePanel.SetActive(true);
+
+        retryButton.SetActive(false);
+
+        yield return new WaitForSeconds(1f);
+
+        retryButton.SetActive(true);
+    }
+
+    public void RetryGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
