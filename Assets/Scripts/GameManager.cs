@@ -1,3 +1,6 @@
+using Cards;
+using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -5,7 +8,9 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
 
     private int playerScore;
-    private int currentTurn;
+    private int currentTurn = 1;
+    private int currentRound = 1;
+    private int roundScore = 0;
 
     public OptionsManager OptionsManager { get; private set; }
     public AudioManager AudioManager { get; private set; }
@@ -13,8 +18,13 @@ public class GameManager : MonoBehaviour
     public DiscardPileManager DiscardPileManager { get; private set; }
 
 
-    [SerializeField] private RectTransform deckRoot;
+    [SerializeField] private RectTransform canvasRoot;
 
+    [SerializeField] private HandManager handManager;
+    [SerializeField] private GridManager gridManager;
+
+    [SerializeField] private int turnsPerRound = 3;
+    [SerializeField] private TMP_Text turnText;
 
     private void Awake()
     {
@@ -95,6 +105,11 @@ public class GameManager : MonoBehaviour
         get { return currentTurn; }
         set { currentTurn = value; }
     }
+    public int CurrentRound
+    {
+        get { return CurrentRound; }
+        set { CurrentRound = value; }
+    }
 
     private T CreateOrGet<T>(string path) where T : MonoBehaviour
     {
@@ -120,13 +135,62 @@ public class GameManager : MonoBehaviour
         return instance.GetComponent<T>();
     }
 
-    public void DrawCardFromDeck()
+    public void EndTurn()
     {
-        if (DeckManager != null) {
+        Debug.Log("END TURN PRESSED");
+        handManager.DiscardHand();
+
+        int score = gridManager.CalculateBoardValue();
+        roundScore += score;
+
+        Debug.Log("Board Value: " + score);
+
+        //za kasnije:
+        //provjerit win condition tu
+
+        gridManager.GridClear();
+
+        AdvanceTurn();
+    }
+
+    private void AdvanceTurn()
+    {
+        currentTurn++;
+        if (currentTurn > turnsPerRound)
+        {
+            currentTurn = 1;
+            currentRound++;
+
+            Debug.Log("Round Score: " + roundScore);
+            roundScore = 0;
+
+            Debug.Log("Round " + currentRound);
+        }
+        Debug.Log("Current Turn: " + currentTurn);
+        UpdateTurnUI();
+        StartTurn();
+    }
+
+    private void StartTurn()
+    {
+        while (handManager.CardCount < DeckManager.drawStartTurn)
+        {
             DeckManager.DrawCard();
         }
-        else {
-            Debug.LogError("DeckManager is null in GameManager!");
-        }
+    }
+
+    private void Start()
+    {
+        handManager = FindAnyObjectByType<HandManager>();
+        gridManager = FindAnyObjectByType<GridManager>();
+
+        Debug.Log($"Round {currentRound} Turn {currentTurn}");
+        UpdateTurnUI();
+        StartTurn();
+    }
+
+    private void UpdateTurnUI()
+    {
+        turnText.text = $"Round {currentRound} - Turn {currentTurn}";
     }
 }

@@ -22,10 +22,8 @@ public class DiscardPileManager : MonoBehaviour
     public void AddToDiscard(Card card)
     {
         discardedCards.Add(card);
-        if (discardedCards.Count > 0)
-        {
-            discardVisuals.UpdateDiscardVisual();
-        }
+
+        discardVisuals.UpdateDiscardVisual();
     }
 
     public bool HasCards()
@@ -33,6 +31,10 @@ public class DiscardPileManager : MonoBehaviour
         return discardedCards.Count > 0;
     }
 
+    public List<Card> GetDiscardedCards()
+    {
+        return new List<Card>(discardedCards);
+    }
 
     public void ShuffleDiscardIntoDeck()
     {
@@ -42,13 +44,10 @@ public class DiscardPileManager : MonoBehaviour
             return;
         }
 
-        foreach (Card card in discardedCards)
-        {
-            GameManager.Instance.DeckManager.currentDeck.Add(card);
-        }
-        GameManager.Instance.DeckManager.ShuffleDeck();
+        GameManager.Instance.DeckManager.AddCardsToDeck(discardedCards);
 
         discardedCards.Clear();
         discardVisuals.UpdateDiscardVisual();
+        Debug.Log("Discard pile shuffled into deck");
     }
 }

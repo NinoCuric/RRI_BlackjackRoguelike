@@ -20,14 +20,15 @@ public class GridManager : MonoBehaviour
 
     void Start()
     {
-        CreateGrid();
+        GridClear();
     }
 
     public void CreateGrid()
     {
         if (gridCells != null)
         {
-            GridClear();
+            Debug.LogWarning("Grid already exists.");
+            return;
         }
 
         gridCells = new GameObject[boardSize];
@@ -93,25 +94,56 @@ public class GridManager : MonoBehaviour
         gridHighlightOverlay.transform.localScale = new Vector2(size, scaleCellY);
     }
 
-    private void GridClear()
+    public int CalculateBoardValue() //ovo triba minjat za blackjack logiku, provjeri ovo da ide za nase karte
+    {
+        int total = 0;
+
+        foreach (GameObject cardObj in gridObjects)
+        {
+            CardDisplay display = cardObj.GetComponent<CardDisplay>();
+
+            if (display != null)
+            {
+                total += display.cardData.valueNumber;
+            }
+        }
+
+        return total;
+    }
+
+    public void GridClear()
     {
         foreach (GameObject obj in gridObjects)
         {
             GameManager.Instance.DiscardPileManager.AddToDiscard(obj.GetComponent<CardDisplay>().cardData);
+            if (boardSize == gridCells.Length) { Destroy(obj); }
         }
         gridObjects.Clear();
 
-        if (gridCells != null) 
-        { 
-            foreach (GameObject cell in gridCells)
+        if (gridCells != null)
+        {
+            if (boardSize != gridCells.Length)          //when changing board size 
             {
-                if (cell != null)
+                foreach (GameObject cell in gridCells)
                 {
-                    Destroy(cell);
+                    if (cell != null)
+                    {
+                        Destroy(cell);
+                    }
+                }
+                gridCells = null;
+                CreateGrid();
+            }
+            else                                        //for when board stays the same
+            {
+                foreach (GameObject cell in gridCells)
+                {
+                    cell.GetComponent<GridCell>().cellFull = false;
+                    cell.GetComponent<GridCell>().objectInCell = null;
                 }
             }
         }
-        gridCells = null;
+
     }
 
 }

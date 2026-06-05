@@ -1,8 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Cards;
-using UnityEngine.UI;
-using TMPro;
 
 public class DeckManager : MonoBehaviour
 {
@@ -11,6 +9,7 @@ public class DeckManager : MonoBehaviour
 
     public List<Card> currentDeck = new List<Card>();
     public int drawStartTurn = 5;
+    public int DeckCount => currentDeck.Count;
 
     private HandManager handManager;
     private DeckVisuals deckVisuals;
@@ -32,10 +31,7 @@ public class DeckManager : MonoBehaviour
         BuildDeck();
         ShuffleDeck();
 
-        for (int i = 0; i < drawStartTurn; i++)
-        {
-            DrawCard();
-        }
+        deckVisuals.UpdateDeckVisual();
     }
 
     public void BuildDeck()
@@ -50,9 +46,9 @@ public class DeckManager : MonoBehaviour
 
     public void ShuffleDeck()
     {
-        for (int i = 0; i < currentDeck.Count; i++)
+        for (int i = 0; i < DeckCount; i++)
         {
-            int randomIndex = Random.Range(i, currentDeck.Count);
+            int randomIndex = Random.Range(i, DeckCount);
 
             Card temp = currentDeck[i];
             currentDeck[i] = currentDeck[randomIndex];
@@ -62,8 +58,8 @@ public class DeckManager : MonoBehaviour
 
     public void DrawCard()
     {
-        Debug.Log("DrawCard called on: " + gameObject.GetEntityId() + " | Count: " + currentDeck.Count);
-        if (currentDeck.Count == 0)
+        Debug.Log("DrawCard called on: " + gameObject.GetEntityId() + " | Count: " + DeckCount);
+        if (DeckCount == 0)
         {
             GameManager.Instance.DiscardPileManager.ShuffleDiscardIntoDeck();
         }
@@ -75,13 +71,14 @@ public class DeckManager : MonoBehaviour
             currentDeck.RemoveAt(0);
             deckVisuals.UpdateDeckVisual();
         }
-        GridManager gridManager = FindAnyObjectByType<GridManager>();       //TEMPORARY GRID TESTING
-        gridManager.CreateGrid();
     }
 
-    public int GetDeckCount()
+    public void AddCardsToDeck(List<Card> cards)
     {
-        return currentDeck.Count;
+        currentDeck.AddRange(cards);
+
+        ShuffleDeck();
+        deckVisuals.UpdateDeckVisual();
     }
 
 }
